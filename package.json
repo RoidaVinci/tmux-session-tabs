@@ -1,8 +1,8 @@
 {
   "name": "tmux-session-tabs",
   "displayName": "Tmux Session Tabs",
-  "description": "A vertical tmux session list with live states, activity dates, reconnect restore, and guarded deletion.",
-  "version": "0.2.1",
+  "description": "Persistent tmux terminals, a separate live agent list, and server CPU, memory, and storage monitoring.",
+  "version": "0.3.0",
   "publisher": "local",
   "license": "MIT",
   "repository": {
@@ -27,7 +27,7 @@
   ],
   "main": "./extension.js",
   "scripts": {
-    "test": "node --test test/extension.test.js"
+    "test": "node --test test/*.test.js"
   },
   "contributes": {
     "views": {
@@ -37,6 +37,18 @@
           "id": "tmuxSessionTabs",
           "name": "Tmux Sessions",
           "when": "true",
+          "visibility": "visible"
+        },
+        {
+          "type": "webview",
+          "id": "tmuxServerAgents",
+          "name": "Server Agents",
+          "visibility": "visible"
+        },
+        {
+          "type": "webview",
+          "id": "tmuxServerResources",
+          "name": "Server Resources",
           "visibility": "visible"
         }
       ]
@@ -72,6 +84,12 @@
     "configuration": {
       "title": "Tmux Session Tabs",
       "properties": {
+        "tmuxSessionTabs.monitorIntervalMs": {
+          "type": "number",
+          "default": 3000,
+          "minimum": 1000,
+          "description": "Refresh interval for the separate Server Agents and Server Resources views. Hidden views do not poll."
+        },
         "tmuxSessionTabs.pollIntervalMs": {
           "type": "number",
           "default": 2500,

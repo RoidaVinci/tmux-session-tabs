@@ -83,7 +83,8 @@ function harness(sessions = [], initialState = {}, options = {}) {
     callback(null, output, "");
   }
   const sandbox = {
-    require: (name) => name === "vscode" ? vscode : name === "child_process" ? { execFile } : require(name),
+    require: (name) => name === "vscode" ? vscode : name === "child_process" ? { execFile }
+      : name === "./server/views" ? { registerServerViews() {} } : require(name),
     module: { exports: {} },
     setInterval: () => 1, clearInterval: () => {}, console,
   };

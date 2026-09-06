@@ -1,5 +1,6 @@
 const vscode = require("vscode");
 const { execFile } = require("child_process");
+const { registerServerViews } = require("./server/views");
 
 const VIEW_ID = "tmuxSessionTabs";
 const TERMINAL_PREFIX = "tmux: ";
@@ -525,6 +526,7 @@ function activate(context) {
     vscode.commands.registerCommand("tmuxSessionTabs.openAll", () => provider.openAll()),
   );
   for (const terminal of vscode.window.terminals) terminalTracker.opened(terminal);
+  registerServerViews(context, { attachSession });
   return provider.initialize();
 }
 
