@@ -1,0 +1,89 @@
+{
+  "name": "tmux-session-tabs",
+  "displayName": "Tmux Session Tabs",
+  "description": "A vertical tmux session list with live states, activity dates, reconnect restore, and guarded deletion.",
+  "version": "0.2.1",
+  "publisher": "local",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RoidaVinci/tmux-session-tabs.git"
+  },
+  "homepage": "https://github.com/RoidaVinci/tmux-session-tabs#readme",
+  "bugs": {
+    "url": "https://github.com/RoidaVinci/tmux-session-tabs/issues"
+  },
+  "engines": {
+    "vscode": ">=1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "scripts": {
+    "test": "node --test test/extension.test.js"
+  },
+  "contributes": {
+    "views": {
+      "explorer": [
+        {
+          "type": "webview",
+          "id": "tmuxSessionTabs",
+          "name": "Tmux Sessions",
+          "when": "true",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "tmuxSessionTabs.refresh",
+        "title": "Tmux Sessions: Refresh"
+      },
+      {
+        "command": "tmuxSessionTabs.newSession",
+        "title": "Tmux Sessions: New Session"
+      },
+      {
+        "command": "tmuxSessionTabs.openAll",
+        "title": "Tmux Sessions: Open All"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "tmuxSessionTabs.newSession",
+          "when": "view == tmuxSessionTabs",
+          "group": "navigation@1"
+        },
+        {
+          "command": "tmuxSessionTabs.refresh",
+          "when": "view == tmuxSessionTabs",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Tmux Session Tabs",
+      "properties": {
+        "tmuxSessionTabs.pollIntervalMs": {
+          "type": "number",
+          "default": 2500,
+          "minimum": 500,
+          "description": "How often to refresh the tmux session list."
+        },
+        "tmuxSessionTabs.autoRestore": {
+          "type": "boolean",
+          "default": true,
+          "description": "Reopen only the tmux terminals left open in this workspace. Background sessions stay in the list without opening a terminal."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,8 @@
+node_modules/
+*.vsix
+screenshots/
+.vscode/
+.env
+.env.*
+*.log
+.DS_Store
